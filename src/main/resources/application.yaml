@@ -2,15 +2,22 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: ms-auth-service
-          uri: ${MS_AUTH_URL:http://localhost:8081}
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081/api/v1/auth}
           predicates:
             - Path=/api/v1/auth/**
-            - Path=/api/v1/auth/helper/**
+
+        - id: user-service
+          uri: ${USER_SERVICE_URL:http://localhost:8081/api/v1/users}
+          predicates:
             - Path=/api/v1/users/**
 
         - id: account-transfer-service
-          uri: ${MS_TRANSFER_URL:http://localhost:8082}
+          uri: ${ACCOUNT_TRANSFER_SERVICE_URL:http://localhost:8082/api/v1/accounts}
           predicates:
             - Path=/api/v1/accounts/**
+
+        - id: currency-service
+          uri: ${CURRENCY_SERVICE_URL:http://localhost:8082/api/v1/rates}
+          predicates:
             - Path=/api/v1/rates/**
